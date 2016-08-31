@@ -1,0 +1,220 @@
+﻿<Window x:Class="ImageAnimation.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Window1"  WindowStartupLocation="CenterScreen" Height="782" Width="1382" Loaded="Window1_Loaded" WindowStyle="None">
+
+    <Window.Resources>
+        <Style x:Key ="roundButtonTemplate" TargetType ="{x:Type Button}">
+            <Setter Property ="Foreground" Value ="Black"/>
+            <Setter Property ="FontWeight" Value ="Bold"/>
+            <Setter Property ="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType ="{x:Type Button}">
+                        <Grid>
+                            <Ellipse Name ="OuterRing" Width ="50" Height ="50" Fill ="DarkGreen" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Ellipse Name ="InnerRing" Width ="40" Height ="40" Fill ="MintCream"/>
+                            <Image Source="Resources/TurnOnOffIcon.png" Width="50" Height="40"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property ="IsMouseOver" Value ="True">
+                                <Setter TargetName ="OuterRing" Property ="Fill" Value ="#CB2020"/>
+                            </Trigger>
+                            <Trigger Property ="IsPressed" Value ="True">
+                                <Setter TargetName ="OuterRing" Property ="Height" Value ="75"/>
+                                <Setter TargetName ="OuterRing" Property ="Width" Value ="75"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="0,0,-288.779,0" Background="#FF288B12">
+        <ToggleButton x:Name="your_turn_button" Focusable="False" Width="50" Height="50" Panel.ZIndex="3" Margin="1000,190,600,490">
+            <ToggleButton.Template>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border CornerRadius="25" Background="{TemplateBinding Background}" BorderBrush="White" BorderThickness="4">
+                        <ContentPresenter Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" Value="LawnGreen">
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Background" Value="#FF3333">
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ToggleButton.Template>
+        </ToggleButton>
+        <ToggleButton x:Name="my_turn_button" Focusable="False" Width="50" Height="50" Panel.ZIndex="3" Margin="1000,490,600,190">
+            <ToggleButton.Template>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border CornerRadius="25" Background="{TemplateBinding Background}" BorderBrush="White" BorderThickness="4">
+                        <ContentPresenter Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" Value="LawnGreen">
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Background" Value="#FF3333">
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ToggleButton.Template>
+        </ToggleButton>
+        <Button x:Name="CloseButton" Style="{StaticResource roundButtonTemplate}"  Panel.ZIndex="10" Margin="-12,466.883,1527.388,168" Click="CloseButton_Click"/>
+        <Image Source="Resources/matchbackground.png" Width="1600" Margin="-500,0,500,0"/>
+        <Rectangle Fill="White" Height="6" Margin="0,230,568,533" Panel.ZIndex="1"/>
+        <Rectangle Fill="White" Height="6" Margin="0,533,568,230" Panel.ZIndex="1"/>
+        <WrapPanel x:Name="match_stack" HorizontalAlignment="Left" VerticalAlignment="Center" Width="1085.66" Height="300" Background="#33FFFFFF" Margin="0,218.5" />
+        <WrapPanel x:Name="match_stack2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="1083.5" Height="300" Background="#00FFFFFF" Margin="31.786,218.5,0,218.5"/>
+        <WrapPanel x:Name="match_stack3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="1083.5" Height="300" Background="#00FFFFFF" Margin="63.81,218.5,0,218.5"/>
+
+        <WrapPanel x:Name="additional_match_stack" Width="106" Height="300" Margin="236.031,221.383,1320.748,229.617"/>
+        <WrapPanel x:Name="additional_match_stack2" Width="106" Height="300" Margin="256.031,221.383,1320.748,229.617"/>
+        <WrapPanel x:Name="additional_match_stack3" Width="106" Height="300" Margin="276.031,221.383,1320.748,229.617"/>
+
+        <WrapPanel x:Name="_additional_match_stack" Width="106" Height="300" Margin="770.803,221.383,785.976,229.617"/>
+        <WrapPanel x:Name="_additional_match_stack2" Width="106" Height="300" Margin="790.803,221.383,785.976,229.617"/>
+        <WrapPanel x:Name="_additional_match_stack3" Width="106" Height="300" Margin="810.803,221.383,785.976,229.617"/>
+
+        <Grid x:Name="dummy_stack" Background="White" Width="80" VerticalAlignment="Center"  Margin="335, 264, 890, 288">
+            <Image x:Name="DummyImage" Width="80" Height="120" HorizontalAlignment="Left" VerticalAlignment="Top" Source="Resources/화투_뒷면.jpg" Margin="0,0,0,0">
+                <Image.BitmapEffect>
+                    <DropShadowBitmapEffect/>
+                </Image.BitmapEffect>
+            </Image>
+        </Grid>
+
+        <!--User-->
+        <StackPanel x:Name="my_stack" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#50008000" Width="Auto"  Height="155" Margin="0, 0, 0, 0"/>
+        <Rectangle x:Name="myDisableRectangle" Width="420" Height="90" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,32" Fill="#66000000"/>
+        <StackPanel x:Name="myGwangStack" Orientation="Horizontal" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="250" Background="#33ffffff" Margin="584.99,602,0,0"/>
+        <StackPanel x:Name="myDdiStack" Orientation="Horizontal" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="250" Background="#50ffffff" Margin="834.99,602,0,0"/>
+        <StackPanel x:Name="myGgeutStack" Orientation="Horizontal" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="250" Background="#50ffffff" Margin="585.69,672,0,0"/>
+        <StackPanel x:Name="myPiStack" Orientation="Horizontal" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="250" Background="#33ffffff" Margin="835,672,0,0"/>
+        <Grid Name="CountBoard"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="500" Height="140"  Margin="0,0,566.177,29.618">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Label Name="MyGwangCount" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="0" FontSize="20" Foreground="White" FontWeight="Regular" Margin="0,0,0,-10" FontFamily="OCR A Std"/>
+            <Label Name="MyDdiCount" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="0" FontSize="20" Foreground="White" FontWeight="Regular" Margin="0,0,0,-10" FontFamily="OCR A Std"/>
+            <Label Name="MyGgeutCount" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="0" FontSize="20" Foreground="White" FontWeight="Regular" Margin="0,0,0,-10" FontFamily="OCR A Std"/>
+            <Label Name="MyPiCount" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="0" FontSize="20" Foreground="White" FontWeight="Regular" Margin="0,0,0,-10" FontFamily="OCR A Std"/>
+        </Grid>
+
+        <!--Enemy-->
+        <StackPanel x:Name="your_stack" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#50008000" Width="Auto"  Height="155" Margin="0, -10, 568, 0"/>
+        <Rectangle x:Name="yourDisableRectangle" Width="420" Height="90" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="665.602,0,0,654" Fill="#66000000"/>
+        <StackPanel x:Name="yourGwangStack" Orientation="Horizontal" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="250" Background="#33ffffff"/>
+        <StackPanel x:Name="yourDdiStack" Orientation="Horizontal" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="250" Background="#50ffffff" Margin="250,0,0,0"/>
+        <StackPanel x:Name="yourGgeutStack" Orientation="Horizontal" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="250" Background="#50ffffff" Margin="0,70,0,0"/>
+        <StackPanel x:Name="yourPiStack" Orientation="Horizontal" HorizontalAlignment="Left" Height="70" VerticalAlignment="Top" Width="250" Background="#33ffffff" Margin="250,70,0,0"/>
+        <Grid Name="YCountBoard"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="500" Height="140">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Label Name="yourGwangCount" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="0" FontSize="20" Foreground="White" FontWeight="Regular" Margin="0,0,0,-5" FontFamily="OCR A Std"/>
+            <Label Name="yourGgeutCount" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="0" FontSize="20" Foreground="White" FontWeight="Regular" Margin="0,0,0,-5" FontFamily="OCR A Std"/>
+            <Label Name="yourDdiCount" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="0" FontSize="20" Foreground="White" FontWeight="Regular" Margin="0,0,0,-5" FontFamily="OCR A Std"/>
+            <Label Name="yourPiCount"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="0" FontSize="20" Foreground="White" FontWeight="Regular" Margin="0,0,0,-5" FontFamily="OCR A Std"/>
+        </Grid>
+
+        <Grid Name="InfoGrid" HorizontalAlignment="Left" Height="743" Background="#66ffffff" Margin="1365.66,0,0,0" VerticalAlignment="Top" Width="280">
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="4*"/>
+                <RowDefinition Height ="2*"/>
+                <RowDefinition Height ="4*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="280" Height="167.319" Background="#FF008800" Margin="0,10,0,0">
+                <Image Width="280" Source="Resources/profilebackground.png"/>
+                <Image Name="ProfileImage" Width="80" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,14.33,6,0" Source="Resources/profile.jpg" Stretch="Fill" />
+                <Label Name="yourName" Content="이름" FontSize="30" Margin="135,10,0,0" Foreground="White" FontFamily="Themacaron"/>
+                <Label Name="yourScore" Content="214,635,739원" FontSize="27" Margin="30,50,0,0" Foreground="White" FontFamily="Themacaron"/>
+                <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="                        0승  0패 " FontSize="30" Foreground="White" Background="#66FFFFFF" Height="55" Width="280" Margin="0,0,0,10" FontFamily="THEMacaron"/>
+            </Grid>
+            <Border x:Name="yourInfo" Grid.Row="0" BorderThickness="3" BorderBrush="White" CornerRadius="0">
+                <Grid Grid.Row="0" Height="50" VerticalAlignment="Bottom" Margin="15,10" Background="#FF008800">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label HorizontalAlignment="Right" Content="GO" FontSize="30" FontFamily="Hobo Std" Margin="0,0,0,0" Foreground="LightGray"/>
+                    <Image HorizontalAlignment="Right" Grid.Column="1" Width="40" Source="Resources/ShitUnactivated.png" Margin="0,0,3,0"/>
+                    <Image HorizontalAlignment="Right" Grid.Column="2" Width="40" Source="Resources/BellUnactivated.png" Margin="0,0,3,0"/>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="2" Height="50" VerticalAlignment="Bottom" Margin="15, 10" Background="#FF008800">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label HorizontalAlignment="Right" Content="GO" FontSize="30" FontFamily="Hobo Std" Margin="0,0,0,0" Foreground="LightGray"/>
+                <Image HorizontalAlignment="Right" Grid.Column="1" Width="40" Source="Resources/ShitUnactivated.png" Margin="0,0,3,0"/>
+                <Image HorizontalAlignment="Right" Grid.Column="2" Width="40" Source="Resources/BellUnactivated.png" Margin="0,0,3,0"/>
+            </Grid>
+
+            <Grid Name="MissonGrid" Grid.Row="1" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="yourScoreGrid" Grid.Row="0" Grid.Column="0" Background="#88FFFFFF" MouseLeftButtonDown="ScoreGrid_MouseLeftButtonDown" MouseLeftButtonUp="ScoreGrid_MouseLeftButtonUp" Panel.ZIndex="1">
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="6점" FontSize="32" FontFamily="TheMacaron" Foreground="White" Panel.ZIndex="3"/>
+                </Grid>
+
+                <Grid x:Name="yourMagnificationGrid" Grid.Row="0" Grid.Column="1" Background="Transparent" MouseLeftButtonDown="ScoreGrid_MouseLeftButtonDown" MouseLeftButtonUp="ScoreGrid_MouseLeftButtonUp" Panel.ZIndex="1">
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="X1" FontSize="32" FontFamily="TheMacaron" Foreground="White" Panel.ZIndex="3"/>
+                </Grid>
+
+                <Grid x:Name="myMagnificationGrid" Grid.Row="1" Grid.Column="0" Background="Transparent" MouseLeftButtonDown="ScoreGrid_MouseLeftButtonDown" MouseLeftButtonUp="ScoreGrid_MouseLeftButtonUp" Panel.ZIndex="1">
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="X2" FontSize="32" FontFamily="TheMacaron" Foreground="White" Panel.ZIndex="3"/>
+                </Grid>
+                
+                <Grid x:Name="myScoreGrid" Grid.Row="1" Grid.Column="1" Background="#88FFFFFF" MouseLeftButtonDown="ScoreGrid_MouseLeftButtonDown" MouseLeftButtonUp="ScoreGrid_MouseLeftButtonUp" Panel.ZIndex="1">
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="5점" FontSize="32" FontFamily="TheMacaron" Foreground="White" Panel.ZIndex="3"/>
+                </Grid>
+
+            </Grid>
+            <Image Name ="mark_left" Grid.Row="1" Width="90" Height="90" Source="Resources/mark_left.png" />
+            <Image Name="mark_right" Grid.Row="1" Width="90" Height="90" Source="Resources/mark_right.png"/>
+
+            <Border x:Name="myInfo" Grid.Row="2" CornerRadius="0" BorderBrush="White" BorderThickness="3">
+                <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" Width="280" Height="167.319" Background="#FF008800" Margin="0,10,0,0">
+                    <Image Source="Resources/profilebackground.png"/>
+                    <Image Width="80" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,14.33,6,0" Source="Resources/profile.jpg" Stretch="Fill" />
+                    <Label Name="myName" Content="이름" FontSize="30" Margin="135,10,0,0" Foreground="White" FontFamily="Themacaron"/>
+                    <Label Name="myScore" Content="173,724,672원" FontSize="27" Margin="30,50,0,0" Foreground="White" FontFamily="Themacaron"/>
+                    <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="                        0승  0패 " FontSize="30" Foreground="White" Background="#66FFFFFF" Height="55" Width="280" Margin="0,0,0,10" FontFamily="THEMacaron"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
