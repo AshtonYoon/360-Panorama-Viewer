@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +30,16 @@ namespace PanoramaViewer
             set { SetValue(PanoramaImageProperty, value); }
         }
 
+        //added
+        public MediaElement panoramaVideo
+        {
+            get { return (MediaElement)GetValue(PanoramaVideoProperty); }
+            set { SetValue(PanoramaVideoProperty, value); }
+        }
+
+        //added
+        public static readonly DependencyProperty PanoramaVideoProperty = DependencyProperty.Register("PanoramaVideo", typeof(MediaElement), typeof(PanoramaView), new PropertyMetadata(null));
+
         // Using a DependencyProperty as the backing store for PanoramaImage.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PanoramaImageProperty = DependencyProperty.Register("PanoramaImage", typeof(ImageSource), typeof(PanoramaView), new PropertyMetadata(null));
 
@@ -36,7 +47,7 @@ namespace PanoramaViewer
         {
             InitializeComponent();
         }
-    
+
         private static Geometry3D CreateGeometry()
         {
             int tDiv = 64;
@@ -160,6 +171,31 @@ namespace PanoramaViewer
         {
             _isOnDrag = false;
             base.OnMouseLeftButtonUp(e);
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            //xaml코드 동적으로 바꾸기
+            //<ImageBrush ImageSource="{Binding Path=PanoramaImage, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+            if (PanoramaImage != null)
+            {
+                panoramaBrush.Brush = new ImageBrush
+                {
+                    //ImageSource = new Binding
+                    //{
+                    //    Path = new PropertyPath(PanoramaImage),
+                    //    RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(UserControl), 1)
+                    //},
+                    ImageSource = PanoramaImage,
+                };
+            }
+            if (panoramaVideo != null)
+            {
+                panoramaBrush.Brush = new VisualBrush
+                {
+                    Visual = panoramaVideo
+                };
+            }
         }
     }
 }

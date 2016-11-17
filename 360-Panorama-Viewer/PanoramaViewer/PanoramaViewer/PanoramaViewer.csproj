@@ -57,7 +57,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="LookBackConverter.cs" />
     <Compile Include="Point3DAnimationUsingPath.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -143,7 +142,10 @@
     <Resource Include="585d0331234507.564a1d239ac5e.gif" />
     <Content Include="pie.svg" />
     <Resource Include="cube.gif" />
-    <Content Include="gears.svg" />
+    <Content Include="gears.xml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

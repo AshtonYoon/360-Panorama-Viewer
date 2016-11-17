@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PanoramaViewer"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Viewport3D>
         <Viewport3D.Camera>
             <PerspectiveCamera Position="0,0,0" UpDirection="0,1,0" LookDirection="0,0,1" FieldOfView="95"></PerspectiveCamera>
@@ -18,15 +18,11 @@
                 </Model3DGroup>
             </ModelVisual3D.Content>
         </ModelVisual3D>
-
-        <ModelVisual3D>
+        <ModelVisual3D x:Name="TextureRenderer">
             <ModelVisual3D.Content>
                 <GeometryModel3D Geometry="{x:Static local:PanoramaView.SphereModel}">
                     <GeometryModel3D.BackMaterial>
-                        <DiffuseMaterial>
-                            <DiffuseMaterial.Brush>
-                                <ImageBrush ImageSource="{Binding Path=PanoramaImage, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
-                            </DiffuseMaterial.Brush>
+                        <DiffuseMaterial x:Name="panoramaBrush">
                         </DiffuseMaterial>
                     </GeometryModel3D.BackMaterial>
                 </GeometryModel3D>

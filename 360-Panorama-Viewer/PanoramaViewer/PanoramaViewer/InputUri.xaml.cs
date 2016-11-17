@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using PanoramaViewer;
+using System.Security.Policy;
 
 namespace PanoramaViewer
 {
@@ -35,6 +36,8 @@ namespace PanoramaViewer
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            //AppDomain appdomain = AppDomain.CreateDomain("dependencyData", null);
+            //appdomain.SetData(typeof(Point).ToString(), null);
             this.Close();
         }
 

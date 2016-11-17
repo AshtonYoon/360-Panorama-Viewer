@@ -62,7 +62,16 @@
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="0.5*"/>    
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Background="#00000000">
+            <Grid Grid.Column="0" Background="#ff000000">
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="Grid.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="#00000000" Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)" FillBehavior="HoldEnd" Duration="0:0:0.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Grid.Triggers>
                 <Grid x:Name="load_from_local_file" Margin="0,-700,0,700">
                     <Label Grid.Column="0" Content="Load from local file" FontFamily="Cul De Sac" FontSize="30" Height="50" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0"/>
                     <Image Source="left-arrow-sketch.png" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="120, 0, 0, 0"/>
@@ -89,7 +98,16 @@
                     </Button>
                 </Grid>
             </Grid>
-            <Grid Background="#33ffffff" Grid.Column="1">
+            <Grid Background="#ffffffff" Grid.Column="1">
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="Grid.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation To="#33ffffff" Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)" FillBehavior="HoldEnd" Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Grid.Triggers>
                 <Grid x:Name="load_from_url" Margin="0,700,0,-700">
                     <Label Grid.Column="1" Content="Load from Url" FontFamily="Cul De Sac" FontSize="30" Height="50" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0"/>
                     <Image Grid.Column="1" Source="left-arrow-sketch.png" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="33,146,163,146" RenderTransformOrigin="0.5,0.5">
@@ -107,7 +125,7 @@
                             <EventTrigger RoutedEvent="Button.MouseEnter">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="LightGray" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" FillBehavior="HoldEnd" Duration="0:0:0.5"/>
+                                        <ColorAnimation To="LightGray" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" FillBehavior="HoldEnd" Duration="0:0:1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>

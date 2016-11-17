@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Windows.Media.Animation;
+using System.Text.RegularExpressions;
 
 namespace PanoramaViewer
 {
@@ -21,18 +22,51 @@ namespace PanoramaViewer
             InitializeComponent();
         }
 
+        private enum MediaType { Image, Video, Else };
+        private MediaType CheckMediaType(string filename)
+        {
+            Regex imageRegex = new Regex("\\.(jpe?g|png|bmp)$");
+            Regex videoRegex = new Regex("\\.(avi|mp4|gif|flv|wmv|)$");
+
+            if (imageRegex.IsMatch(filename))
+                return MediaType.Image;
+            else if (videoRegex.IsMatch(filename))
+                return MediaType.Video;
+            else
+                return MediaType.Else;
+        }
+
         private void LoadByLocal_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+            //openFileDialog.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif"+
+            //    "Video files |*.wmv; *.3g2; *.3gp; *.3gp2; *.3gpp; *.amv; *.asf;  *.avi; *.bin; *.cue; *.divx; *.dv; *.flv; *.gxf; *.iso; *.m1v; *.m2v; *.m2t; *.m2ts; *.m4v; " +
+            //              " *.mkv; *.mov; *.mp2; *.mp2v; *.mp4; *.mp4v; *.mpa; *.mpe; *.mpeg; *.mpeg1; *.mpeg2; *.mpeg4; *.mpg; *.mpv2; *.mts; *.nsv; *.nuv; *.ogg; *.ogm; *.ogv; *.ogx; *.ps; *.rec; *.rm; *.rmvb; *.tod; *.ts; *.tts; *.vob; *.vro; *.webm; *.dat; ";
+
 
             Nullable<bool> OpenFileDialogResult = openFileDialog.ShowDialog();
             if (OpenFileDialogResult == true)
             {
                 PanoramaView panoramaView = new PanoramaView();
-                panoramaView.PanoramaImage = new BitmapImage(new Uri(openFileDialog.FileName, UriKind.RelativeOrAbsolute));
-                RenderOptions.SetBitmapScalingMode(panoramaView.PanoramaImage, BitmapScalingMode.HighQuality);
 
+                if (CheckMediaType(openFileDialog.FileName) == MediaType.Image)
+                {
+                    panoramaView.PanoramaImage = new BitmapImage(new Uri(openFileDialog.FileName, UriKind.RelativeOrAbsolute));
+                    RenderOptions.SetBitmapScalingMode(panoramaView.PanoramaImage, BitmapScalingMode.HighQuality);
+                }
+                else if (CheckMediaType(openFileDialog.FileName) == MediaType.Video)
+                {
+                    panoramaView.panoramaVideo = new MediaElement
+                    {
+                        Source = new Uri(openFileDialog.FileName, UriKind.RelativeOrAbsolute),
+                        LoadedBehavior = MediaState.Play,
+                        IsMuted = false
+                    };
+                }
+                else
+                {
+
+                }
                 ViewPortGrid.Children.Add(panoramaView);
 
                 subLoadingText.Visibility = Visibility.Visible;
